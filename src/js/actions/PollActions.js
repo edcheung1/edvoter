@@ -1,37 +1,44 @@
 import dispatcher from "../dispatcher";
+import axios from "axios";
 
 export function createPoll(name) {
-	dispatcher.dispatch({
-		type: "CREATE_POLL",
-		name
-	});
+	axios.post('/api/allpolls', {
+			name,
+			id: Date.now()
+		})
+		.then((res) => {
+			this.reloadPolls();
+		})
+		.catch((err) => {
+			console.error(err);
+		})
+	
 }
 
 export function deletePoll(id) {
-	dispatcher.dispatch({
-		type: "DELETE_POLL",
-		id
-	});
+	axios.delete('/api/allpolls/' + id)
+		.then((res) => {
+			this.reloadPolls();
+		})
+		.catch((err) => {
+			console.error(err);
+		})
 }
 
 export function reloadPolls() {
 	dispatcher.dispatch({
 		type: "FETCH_POLLS"
 	});
-	setTimeout(() => {
-		dispatcher.dispatch({
-			type: "RECEIVE_POLLS",
-			polls: [
-				{
-					id: 123214,
-					name: "derp",
-					value: 19472389
-				},
-				{
-					id: 45435,
-					name: "herp",
-					value: 534534
-				}
-			]});
-	}, 1000);
+
+	console.log("fetching");
+	axios.get('/api/allpolls')
+		.then((res) => {
+			dispatcher.dispatch({
+				type: "RECEIVE_POLLS",
+				polls: res.data
+			})
+		})
+		.catch((err) => {
+			console.error(err);
+		});
 }

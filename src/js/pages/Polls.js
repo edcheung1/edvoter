@@ -14,6 +14,7 @@ export default class Polls extends React.Component {
 	}
 
 	componentWillMount() {
+		PollActions.reloadPolls();
 		PollStore.on("change", this.getPolls);
 	}
 

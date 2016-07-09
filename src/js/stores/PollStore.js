@@ -5,36 +5,7 @@ import dispatcher from "../dispatcher";
 class PollStore extends EventEmitter {
 	constructor() {
 		super();
-		this.polls = [
-			{
-				id: 1,
-				name: "Ed",
-				value: 8923
-			},
-			{
-				id: 2,
-				name: "Linnea",
-				value: 3490
-			}
-		]
-	}
-
-	createPoll(name, value = 0) {
-		const id = Date.now();
-
-		this.polls.push({
-			id,
-			name,
-			value: id
-		});
-
-		this.emit("change");
-	}
-
-	deletePoll(removeId) {
-		this.polls = this.polls.filter( poll => poll.id !== removeId);
-
-		this.emit("change");
+		this.polls = []
 	}
 
 	getAll() {

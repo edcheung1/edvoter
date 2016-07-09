@@ -4,7 +4,6 @@ import { IndexLink, Link } from "react-router";
 export default class Nav extends React.Component {
 	render() {
 		const { location } = this.props;
-		console.log(location.pathname);
 		const homeActive = location.pathname === "/" ? "active" : "";
 		const pollsActive = location.pathname.match(/^polls/) ? "active" : "";
 		const loginActive = location.pathname.match(/^login/)  ? "active" : "";

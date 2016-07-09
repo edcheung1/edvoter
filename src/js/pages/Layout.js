@@ -12,7 +12,7 @@ export default class Layout extends React.Component {
 				<Nav location={this.props.location}/>
 				{this.props.children}
 				<Link to="/" class="btn btn-primary">Home</Link>
-				<Link to={"polls/" + Math.random()} class="btn btn-warning">Polls</Link>
+				<Link to="polls/" class="btn btn-warning">Polls</Link>
 				<Link to="login" class="btn btn-info">Login</Link>
 				<Link to="settings" class="btn btn-success">Settings</Link>
 				<Footer />

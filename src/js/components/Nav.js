@@ -4,10 +4,11 @@ import { IndexLink, Link } from "react-router";
 export default class Nav extends React.Component {
 	render() {
 		const { location } = this.props;
+		console.log(location.pathname);
 		const homeActive = location.pathname === "/" ? "active" : "";
-		const pollsActive = location.pathname.match(/^\/polls/) ? "active" : "";
-		const loginActive = location.pathname.match(/^\/login/)  ? "active" : "";
-		const settingsActive = location.pathname.match(/^\/settings/)  ? "active" : "";
+		const pollsActive = location.pathname.match(/^polls/) ? "active" : "";
+		const loginActive = location.pathname.match(/^login/)  ? "active" : "";
+		const settingsActive = location.pathname.match(/^settings/)  ? "active" : "";
 		return (
 			<div>
 				<nav class="navbar navbar-default">
@@ -19,7 +20,7 @@ export default class Nav extends React.Component {
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-				      <a class="navbar-brand" href="#">Brand</a>
+			      	  <IndexLink class="navbar-brand" to="/">Home</IndexLink>
 				    </div>
 				    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
 				      <ul class="nav navbar-nav">

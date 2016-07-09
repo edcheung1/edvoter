@@ -6,7 +6,7 @@ import Featured from "./pages/Featured";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Polls from "./pages/Polls";
-import Settings from "./pages/Settings";
+import NewPoll from "./pages/NewPoll";
 
 const app = document.getElementById('app');
 
@@ -16,7 +16,7 @@ ReactDOM.render(
 			<IndexRoute component={Featured}></IndexRoute>
 			<Route path="login" component={Login}></Route>
 			<Route path="polls(/:poll)" component={Polls}></Route>
-			<Route path="settings" component={Settings}></Route>
+			<Route path="newpoll" component={NewPoll}></Route>
 		</Route>
 	</Router>,
 app);

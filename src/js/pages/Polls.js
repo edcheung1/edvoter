@@ -25,16 +25,15 @@ export default class Polls extends React.Component {
 	getPolls() {
 		this.setState({
 			polls: PollStore.getAll()
-		})
+		});
 	}
 
-	createPoll() {
-		const pollName = document.getElementById("pollName").value;
-		PollActions.createPoll(pollName);
+	addVote(_id, choice) {
+		PollActions.addVote(_id, choice);
 	}
 
-	deletePoll(id) {
-		PollActions.deletePoll(id);
+	deletePoll(_id) {
+		PollActions.deletePoll(_id);
 	}
 
 	reloadPolls() {
@@ -44,17 +43,16 @@ export default class Polls extends React.Component {
 	render() {
 		const { pollParam } = this.props.params;
 		const { polls } = this.state;
-		var pollTitle = pollParam ? "(" + pollParam + ")" : "";
+		let pollTitle = pollParam ? "(" + pollParam + ")" : "";
 		const PollComponents = polls.map((poll) => {
-			return <Poll key={poll.id} {...poll} delete={this.deletePoll.bind(this, poll.id)} />;
-		})
+			return <Poll key={poll._id} {...poll} addVote={this.addVote} delete={this.deletePoll.bind(this, poll._id)} />;
+		});
+
 		return (
 			<div>
 				<h1>Polls {pollTitle}</h1>
-				<button onClick={this.createPoll.bind(this)}>Create Poll</button>
-				<input id="pollName" />
 				<br/>
-				<button onClick={this.reloadPolls.bind(this)}>Reload Polls</button>
+				<button class="btn btn-primary" onClick={this.reloadPolls.bind(this)}>Reload Polls</button>
 				{PollComponents}
 			</div>
 		);

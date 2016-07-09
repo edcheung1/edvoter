@@ -7,7 +7,7 @@ export default class Nav extends React.Component {
 		const homeActive = location.pathname === "/" ? "active" : "";
 		const pollsActive = location.pathname.match(/^polls/) ? "active" : "";
 		const loginActive = location.pathname.match(/^login/)  ? "active" : "";
-		const settingsActive = location.pathname.match(/^settings/)  ? "active" : "";
+		const newPollActive = location.pathname.match(/^settings/)  ? "active" : "";
 		return (
 			<div>
 				<nav class="navbar navbar-default">
@@ -27,13 +27,13 @@ export default class Nav extends React.Component {
 				        	<IndexLink to="/">Home</IndexLink>
 			        	</li>
 				        <li class={pollsActive}>
-				        	<Link to="polls">Polls</Link>
+				        	<Link to="polls">All Polls</Link>
+			        	</li>
+			        	<li class={newPollActive}>
+				        	<Link to="newpoll">New Poll</Link>
 			        	</li>
 				        <li class={loginActive}>
 				        	<Link to="login">Login</Link>
-			        	</li>
-				        <li class={settingsActive}>
-				        	<Link to="settings">Settings</Link>
 			        	</li>
 				      </ul>
 				    </div>

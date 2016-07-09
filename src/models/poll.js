@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var pollSchema = new mongoose.Schema({
-		id: Number,
-		name: String,
-		value: Number
+		_id: String,
+		title: String,
+		choices: {type: Array, "default": [] }
 	})
 
 module.exports = mongoose.model('Poll', pollSchema);

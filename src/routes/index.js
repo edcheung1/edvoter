@@ -6,7 +6,6 @@ var Poll = require('../models/poll');
 module.exports = function(app) {
 	app.route('/')
 		.get( (req, res) => {
-			console.log(process.cwd());
 			res.sendFile(process.cwd() + '/index.html');
 		});
 	app.route('/api/allpolls')
@@ -17,25 +16,36 @@ module.exports = function(app) {
 			})
 		})
 		.post( (req, res) => {
-			console.log(req.body);
 
 			let poll = new Poll({
-				name: req.body.name,
-				id: req.body.id,
-				value: 0
+				_id: req.body._id,
+				title: req.body.title,
+				choices: req.body.choices
 			});
 
 			poll.save((err) => {
-				if(err) return next(err);
+				if(err) return console.error(err);
 				res.send({message: req.body.name + "'s poll has been added sucessfully!"});
 			})
 
 		})
 		
 	app.route('/api/allpolls/:pollId')
+		.post( (req,res) => {
+			let updateChoice = "choices.$." + req.body.choice;
+
+			Poll.findOneAndUpdate(
+				{"_id": req.params.pollId, "choices.choice_name": req.body.choice},
+				{$inc: {"choices.$.votes": 1}},
+				{upsert: true}, function(err, poll) {
+					if(err) return console.error(err);
+					res.send(poll);
+				})
+
+		})
 		.delete( (req,res) => {
 			Poll.find({
-				id: req.params.pollId
+				_id: req.params.pollId
 			}).remove(() => {
 				res.send({message: req.params.pollId + "'s poll has been removed sucessfully!"});
 			})

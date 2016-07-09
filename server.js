@@ -5,7 +5,7 @@ var routes = require('./src/routes/index.js');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-require('dotenv').config();
+require('dotenv').load();
 var mongoURI = process.env.NODE_ENV == "production" ? process.env.MONGO_URI : "mongodb://localhost:27017/voter";
 
 var app = express();

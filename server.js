@@ -5,8 +5,7 @@ var routes = require('./src/routes/index.js');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-require('dotenv').config();
-var mongoURI = process.env.NODE_ENV == "production" ? process.env.MONGO_URI : "mongodb://localhost:27017/voter";
+require('dotenv').load();
 
 var app = express();
 
@@ -18,7 +17,7 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 
-mongoose.connect(mongoURI);
+mongoose.connect(process.env.MONGO_URI);
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Could not connect to MongoDB server'));

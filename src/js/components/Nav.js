@@ -1,5 +1,5 @@
 import React from "react";
-import { IndexLink, Link } from "react-router";
+import { IndexLink, Link, browserHistory } from "react-router";
 
 import AuthActions from '../actions/AuthActions';
 import AuthStore from "../stores/AuthStore.js";
@@ -7,9 +7,6 @@ import AuthStore from "../stores/AuthStore.js";
 export default class Nav extends React.Component {
 	constructor() {
 		super();
-		this.state = {
-			authenticated: AuthStore.isAuthenticated()
-		}
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
 	}
@@ -20,19 +17,13 @@ export default class Nav extends React.Component {
 				console.error(err);
 				return;
 			}
-
 			AuthActions.logUserIn(profile, token);
-			this.setState({
-				authenticated: true
-			});
 		})
 	}
 
 	logout() {
 		AuthActions.logUserOut();
-		this.setState({
-			authenticated: false
-		})
+		browserHistory.push("/");
 	}
 
 	render() {
@@ -66,7 +57,7 @@ export default class Nav extends React.Component {
 				        	<Link to="newpoll">New Poll</Link>
 			        	</li>
 				        <li class={loginActive}>
-				        	{ !this.state.authenticated ? 
+				        	{ !this.props.authenticated ? 
 				        		(<a style={{cursor: "pointer"}} onClick={this.login}>Login</a>) : (<a style={{cursor: "pointer"}} onClick={this.logout}>Logout</a>)
 				        	}
 			        	</li>

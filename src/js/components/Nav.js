@@ -1,7 +1,40 @@
 import React from "react";
 import { IndexLink, Link } from "react-router";
 
+import AuthActions from '../actions/AuthActions';
+import AuthStore from "../stores/AuthStore.js";
+
 export default class Nav extends React.Component {
+	constructor() {
+		super();
+		this.state = {
+			authenticated: AuthStore.isAuthenticated()
+		}
+		this.login = this.login.bind(this);
+		this.logout = this.logout.bind(this);
+	}
+
+	login() {
+		this.props.lock.show((err, profile, token) => {
+			if(err) {
+				console.error(err);
+				return;
+			}
+
+			AuthActions.logUserIn(profile, token);
+			this.setState({
+				authenticated: true
+			});
+		})
+	}
+
+	logout() {
+		AuthActions.logUserOut();
+		this.setState({
+			authenticated: false
+		})
+	}
+
 	render() {
 		const { location } = this.props;
 		const homeActive = location.pathname === "/" ? "active" : "";
@@ -19,7 +52,7 @@ export default class Nav extends React.Component {
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-			      	  <IndexLink class="navbar-brand" to="/">Home</IndexLink>
+			      	  <IndexLink class="navbar-brand" to="/">Ed's Voter Redux App</IndexLink>
 				    </div>
 				    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
 				      <ul class="nav navbar-nav">
@@ -33,7 +66,9 @@ export default class Nav extends React.Component {
 				        	<Link to="newpoll">New Poll</Link>
 			        	</li>
 				        <li class={loginActive}>
-				        	<Link to="login">Login</Link>
+				        	{ !this.state.authenticated ? 
+				        		(<a style={{cursor: "pointer"}} onClick={this.login}>Login</a>) : (<a style={{cursor: "pointer"}} onClick={this.logout}>Logout</a>)
+				        	}
 			        	</li>
 				      </ul>
 				    </div>

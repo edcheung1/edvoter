@@ -16,6 +16,9 @@ export default class NewPoll extends React.Component {
 		});
 		let pollId = hashids.encode(Date.now());
 		PollActions.createPoll(pollTitle, pollChoices, pollId);
+
+		//Redirect to all polls
+		this.props.history.push('/polls');
 	}
 
 	render() {

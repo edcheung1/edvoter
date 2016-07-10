@@ -3,12 +3,15 @@ import React from "react";
 import Poll from "../components/Poll";
 import * as PollActions from "../actions/PollActions";
 import PollStore from "../stores/PollStore.js";
+import AuthStore from "../stores/AuthStore.js";
 
 export default class Polls extends React.Component {
 	constructor() {
 		super();
 		this.getPolls = this.getPolls.bind(this);
+		this.getAuthenticated = this.getAuthenticated.bind(this);
 		this.state = {
+			authenticated: AuthStore.isAuthenticated(),
 			polls: PollStore.getAll()
 		};
 	}
@@ -16,16 +19,24 @@ export default class Polls extends React.Component {
 	componentWillMount() {
 		PollActions.reloadPolls();
 		PollStore.on("change", this.getPolls);
+		AuthStore.on("change", this.getAuthenticated);
 	}
 
 	componentWillUnmount() {
 		PollStore.removeListener("change", this.getPolls);
+		AuthStore.removeListener("change", this.getAuthenticated);
 	}
 
 	getPolls() {
 		this.setState({
 			polls: PollStore.getAll()
 		});
+	}
+
+	getAuthenticated() {
+		this.setState({
+			authenticated: AuthStore.isAuthenticated()
+		})
 	}
 
 	addVote(_id, choice) {
@@ -51,6 +62,8 @@ export default class Polls extends React.Component {
 		return (
 			<div>
 				<h1>Polls {pollTitle}</h1>
+				<br/>
+				{ this.state.authenticated ? "Logged In!" : "Not Logged In!"}
 				<br/>
 				<button class="btn btn-primary" onClick={this.reloadPolls.bind(this)}>Reload Polls</button>
 				{PollComponents}

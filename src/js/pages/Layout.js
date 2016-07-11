@@ -19,7 +19,7 @@ export default class Layout extends React.Component {
 	componentWillMount() {
 		this.lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, {});
 		AuthStore.on("change", this.getAuthenticated);
-		axios.get('http://freegeoip.net/json/')
+		axios.get('https://freegeoip.net/json/')
 			.then((res) => {
 				localStorage.setItem('ip_address', res.data.ip);
 			})

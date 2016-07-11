@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var jwt = require('express-jwt');
 var cors = require('cors');
 
-// require('dotenv').load();
+require('dotenv').load();
 
 var app = express();
 

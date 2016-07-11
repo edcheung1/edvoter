@@ -5,9 +5,7 @@
 }
 
 .footer {
-  padding: 20px;
-}
-
-.footer .container {
-	border: 2px solid #17191b;
+	margin-top: 12px;
+	padding: 10px;
+	border-top: 1px solid #17191b;
 }

@@ -1,7 +1,21 @@
 .poll-container {
 	border: 2px solid #17191b;
 	padding: 12px;
-	margin: 8px 0;
+	margin: 12px 0;
+	display: flex;
+	flex-direction: row;
+}
+
+.btn-add-vote {
+	margin: 4px;
+}
+
+.btn-delete-poll {
+	margin: 4px 0;
+}
+
+.pie-chart {
+	margin-left: auto;
 }
 
 .footer {

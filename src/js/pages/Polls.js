@@ -45,6 +45,43 @@ export default class Polls extends React.Component {
 		const { pollParam } = this.props.params;
 		const { polls } = this.state;
 		let pollTitle = pollParam ? "(" + pollParam + ")" : "";
+
+		// let polls = [
+		// 	{
+		// 		title: "test poll",
+		// 		_id: "test_id1",
+		// 		creator: "test creator",
+		// 		choices: [
+		// 			{choice_name: "squirtle", votes: 43}, 
+		// 			{choice_name: "charmander", votes: 12},
+		// 			{choice_name: "bulbasaur", votes: 323}
+		// 		],
+		// 		voted_users: []
+		// 	}, 
+		// 	{
+		// 		title: "test poll",
+		// 		_id: "test_id2",
+		// 		creator: "test creator",
+		// 		choices: [
+		// 			{choice_name: "squirtle", votes: 43}, 
+		// 			{choice_name: "charmander", votes: 12},
+		// 			{choice_name: "bulbasaur", votes: 323}
+		// 		],
+		// 		voted_users: []
+		// 	}, 
+		// 	{
+		// 		title: "test poll",
+		// 		_id: "test_id3",
+		// 		creator: "test creator",
+		// 		choices: [
+		// 			{choice_name: "squirtle", votes: 43}, 
+		// 			{choice_name: "charmander", votes: 12},
+		// 			{choice_name: "bulbasaur", votes: 323}
+		// 		],
+		// 		voted_users: []
+		// 	}
+		// ]
+
 		const PollComponents = polls.map((poll) => {
 			return <Poll key={poll._id} {...poll} addVote={this.addVote} delete={this.deletePoll.bind(this, poll._id)} />;
 		});

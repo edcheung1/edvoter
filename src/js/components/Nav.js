@@ -44,7 +44,7 @@ export default class Nav extends React.Component {
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-			      	  <IndexLink class="navbar-brand" to="/">Ed's Voter Redux App</IndexLink>
+			      	  <IndexLink class="navbar-brand" to="/">Ed's Voting (React+Flux) App</IndexLink>
 				    </div>
 				    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
 				      <ul class="nav navbar-nav">

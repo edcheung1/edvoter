@@ -21,7 +21,8 @@ module.exports = function(app, authCheck) {
 				_id: req.body._id,
 				title: req.body.title,
 				choices: req.body.choices,
-				creator: req.body.creator
+				creator: req.body.creator,
+				total_votes: req.body.total_votes
 			});
 
 			poll.save((err) => {
@@ -37,7 +38,7 @@ module.exports = function(app, authCheck) {
 
 			Poll.findOneAndUpdate(
 				{"_id": req.params.pollId, "choices.choice_name": req.body.choice},
-				{$inc: {"choices.$.votes": 1}, $addToSet: {"voted_users": req.body.user_id}},
+				{$inc: {"choices.$.votes": 1, "total_votes": 1}, $addToSet: {"voted_users": req.body.user_id}},
 				{upsert: true}, function(err, poll) {
 					if(err) return console.error(err);
 					res.send(poll);

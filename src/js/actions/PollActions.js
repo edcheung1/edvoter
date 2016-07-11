@@ -6,7 +6,8 @@ export function createPoll(title, choices, _id, creator) {
 			title,
 			choices,
 			_id,
-			creator
+			creator,
+			total_votes: 0
 		})
 		.then((res) => {
 			this.reloadPolls();

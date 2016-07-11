@@ -71,14 +71,19 @@ export default class Layout extends React.Component {
 			<div id="react-body">
 				<Nav lock={this.lock} authenticated={this.state.authenticated} location={this.props.location} history={this.props.history} />
 				<div class="content container">
-				{welcomeMessage}
-				{children}
-					<Link to="/" class="btn btn-primary">Home</Link>
-					<Link to="polls" class="btn btn-warning">Polls</Link>
-					<Link to="mypolls" class="btn btn-info">My Polls</Link>
-					<Link to="newpoll" class="btn btn-success">New Poll</Link>
-					<br/>
+					{welcomeMessage}
+					{children}
 				</div>
+				<br/>
+				<div class="bottom-buttons container">
+					<div class="btn-group">
+						<Link to="/" class="btn btn-primary">Home</Link>
+						<Link to="polls" class="btn btn-warning">All Polls</Link>
+						<Link to="mypolls" class="btn btn-info">My Polls</Link>
+						<Link to="newpoll" class="btn btn-success">New Poll</Link>
+					</div>
+				</div>
+				<br/>
 				<Footer />
 			</div>	
 		);

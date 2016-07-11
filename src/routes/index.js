@@ -20,12 +20,13 @@ module.exports = function(app, authCheck) {
 			let poll = new Poll({
 				_id: req.body._id,
 				title: req.body.title,
-				choices: req.body.choices
+				choices: req.body.choices,
+				creator: req.body.creator
 			});
 
 			poll.save((err) => {
 				if(err) return console.error(err);
-				res.send({message: req.body.name + "'s poll has been added sucessfully!"});
+				res.send({message: "Poll " + req.body.title + " has been added sucessfully!"});
 			})
 
 		})
@@ -36,7 +37,7 @@ module.exports = function(app, authCheck) {
 
 			Poll.findOneAndUpdate(
 				{"_id": req.params.pollId, "choices.choice_name": req.body.choice},
-				{$inc: {"choices.$.votes": 1}},
+				{$inc: {"choices.$.votes": 1}, $addToSet: {"voted_users": req.body.user_id}},
 				{upsert: true}, function(err, poll) {
 					if(err) return console.error(err);
 					res.send(poll);

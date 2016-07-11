@@ -4,8 +4,8 @@ import { Router, Route, IndexRoute, hashHistory, browserHistory } from "react-ro
 
 import Featured from "./pages/Featured";
 import Layout from "./pages/Layout";
-import Login from "./pages/Login";
 import Polls from "./pages/Polls";
+import MyPolls from "./pages/MyPolls";
 import NewPoll from "./pages/NewPoll";
 
 const app = document.getElementById('app');
@@ -14,7 +14,7 @@ ReactDOM.render(
 	<Router history={browserHistory}>
 		<Route path="/" component={Layout}>
 			<IndexRoute component={Featured}></IndexRoute>
-			<Route path="login" component={Login}></Route>
+			<Route path="mypolls" component={MyPolls}></Route>
 			<Route path="polls(/:poll)" component={Polls}></Route>
 			<Route path="newpoll" component={NewPoll}></Route>
 		</Route>

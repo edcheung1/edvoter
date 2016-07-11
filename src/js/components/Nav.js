@@ -30,6 +30,7 @@ export default class Nav extends React.Component {
 		const { location } = this.props;
 		const homeActive = location.pathname === "/" ? "active" : "";
 		const pollsActive = location.pathname.match(/^polls/) ? "active" : "";
+		const myPollsActive = location.pathname.match(/^mypolls/) ? "active" : "";
 		const loginActive = location.pathname.match(/^login/)  ? "active" : "";
 		const newPollActive = location.pathname.match(/^settings/)  ? "active" : "";
 		return (
@@ -53,6 +54,12 @@ export default class Nav extends React.Component {
 				        <li class={pollsActive}>
 				        	<Link to="polls">All Polls</Link>
 			        	</li>
+			        	{ this.props.authenticated ? (
+	        				<li class={myPollsActive}>
+		        				<Link to="myPolls">My Polls</Link>
+		        			</li>
+	        				) : ""
+			        	}
 			        	<li class={newPollActive}>
 				        	<Link to="newpoll">New Poll</Link>
 			        	</li>

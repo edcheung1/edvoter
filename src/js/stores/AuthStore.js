@@ -1,18 +1,24 @@
 import { EventEmitter } from "events";
+import jwt_decode from "jwt-decode";
 
 import dispatcher from "../dispatcher";
 
-class PollStore extends EventEmitter {
+class AuthStore extends EventEmitter {
 	setUser(profile, token) {
 		if(!localStorage.getItem('id_token')) {
+			let decodedJwt = jwt_decode(token);
+
 			localStorage.setItem('profile', JSON.stringify(profile));
 			localStorage.setItem('id_token', token);
+			localStorage.setItem('user_id', decodedJwt.sub);
+
 		}
 	}
 
 	removeUser() {
 		localStorage.removeItem('profile');
 		localStorage.removeItem('id_token');
+		localStorage.removeItem('user_id');
 	}
 
 	isAuthenticated() {
@@ -23,7 +29,7 @@ class PollStore extends EventEmitter {
 	}
 
 	getUser() {
-		return localStorage.getItem('profile');
+		return localStorage.getItem('user_id');
 	}
 
 	getJwt() {
@@ -48,7 +54,7 @@ class PollStore extends EventEmitter {
 
 }
 
-const authStore = new PollStore;
+const authStore = new AuthStore;
 dispatcher.register(authStore.handleActions.bind(authStore));
 
 export default authStore;

@@ -1,0 +1,13 @@
+.poll-container {
+	border: 2px solid #17191b;
+	padding: 12px;
+	margin: 8px 0;
+}
+
+.footer {
+  padding: 20px;
+}
+
+.footer .container {
+	border: 2px solid #17191b;
+}

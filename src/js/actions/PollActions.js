@@ -1,11 +1,12 @@
 import dispatcher from "../dispatcher";
 import axios from "axios";
 
-export function createPoll(title, choices, _id) {
+export function createPoll(title, choices, _id, creator) {
 	axios.post('/api/allpolls', {
 			title,
 			choices,
-			_id
+			_id,
+			creator
 		})
 		.then((res) => {
 			this.reloadPolls();
@@ -31,7 +32,6 @@ export function reloadPolls() {
 		type: "FETCH_POLLS"
 	});
 
-	console.log("fetching");
 	axios.get('/api/allpolls')
 		.then((res) => {
 			dispatcher.dispatch({
@@ -44,10 +44,11 @@ export function reloadPolls() {
 		});
 }
 
-export function addVote(_id, choice) {
+export function addVote(_id, choice, user_id) {
 	axios.post('/api/allpolls/' + _id, {
 			_id,
-			choice
+			choice,
+			user_id
 		})
 		.then((res) => {
 			this.reloadPolls();

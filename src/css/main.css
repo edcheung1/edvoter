@@ -6,6 +6,10 @@
 	flex-direction: row;
 }
 
+#profile-name {
+	color: rgb(44, 160, 44);
+}
+
 .btn-add-vote {
 	margin: 4px;
 }

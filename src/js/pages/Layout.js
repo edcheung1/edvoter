@@ -56,11 +56,11 @@ export default class Layout extends React.Component {
 			switch(profile.identities[0].provider) {
 				case "facebook":
 				case "auth0": {
-					welcomeMessage = (<h1>Welcome, {profile.nickname}!</h1>);
+					welcomeMessage = (<h1>Welcome, <span id="profile-name">{profile.nickname}</span>!</h1>);
 					break;
 				}
 				case "github": {
-					welcomeMessage = (<h1>Welcome, {profile.name}!</h1>)
+					welcomeMessage = (<h1>Welcome, <span id="profile-name">{profile.name}</span>!</h1>)
 					break;
 				}
 				default: 

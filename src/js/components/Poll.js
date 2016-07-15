@@ -10,6 +10,10 @@ export default class Poll extends React.Component {
 			width: 275,
 			height: 275
 		}
+
+		this.state = {
+			newOption: ''
+		}
 	}
 
 	componentDidMount() {
@@ -28,6 +32,12 @@ export default class Poll extends React.Component {
 		PieChart.destroy(el);
 	}
 
+	handleNewOption(event) {
+		this.setState({
+			newOption: event.target.value
+		})
+	}
+
 	render() {
 		let currentUser = AuthStore.getUser() === null ? localStorage.getItem('ip_address') : AuthStore.getUser();
 		let hasVoted = this.props.voted_users.indexOf(currentUser) >= 0;
@@ -35,7 +45,7 @@ export default class Poll extends React.Component {
 			return (
 				<div key={i}>
 					{ hasVoted ? "" : (
-						<button class="btn btn-success btn-xs btn-add-vote" onClick={this.props.addVote.bind(this,this.props._id,choice.choice_name, currentUser)}>+</button>
+						<button class="btn btn-success btn-xs btn-add-vote" onClick={this.props.addVote.bind(this, this.props._id, choice.choice_name, currentUser)}>+</button>
 					)
 					}
 					{choice.choice_name + ": " + choice.votes}
@@ -50,6 +60,14 @@ export default class Poll extends React.Component {
 						<h3>{this.props.title}</h3>
 						<h5>{ hasVoted ? "You've already voted in this poll." : ""}</h5>
 						{PollChoices}
+
+						{ hasVoted ? "" : (
+							<div>
+								<button class="btn btn-success btn-xs btn-add-vote" onClick={this.props.addVote.bind(this, this.props._id, this.state.newOption, currentUser)}>+</button>
+								<input maxLength={20} defaultValue="Enter New Option" onChange={this.handleNewOption.bind(this)} />
+							</div>
+						)}
+						
 						{ currentUser == this.props.creator ? (
 							<button class="btn btn-danger btn-delete-poll" onClick={this.props.delete}>Delete Poll</button>
 						) : ""

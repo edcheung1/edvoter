@@ -31,6 +31,7 @@
     "history": "^3.0.0",
     "json-loader": "^0.5.4",
     "jwt-decode": "^2.0.1",
+    "masonry-layout": "^4.1.0",
     "mongoose": "^4.5.3",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",

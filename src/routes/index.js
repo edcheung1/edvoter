@@ -34,16 +34,30 @@ module.exports = function(app, authCheck) {
 		
 	app.route('/api/allpolls/:pollId')
 		.post( (req,res) => {
-			let updateChoice = "choices.$." + req.body.choice;
 
-			Poll.findOneAndUpdate(
-				{"_id": req.params.pollId, "choices.choice_name": req.body.choice},
-				{$inc: {"choices.$.votes": 1, "total_votes": 1}, $addToSet: {"voted_users": req.body.user_id}},
-				{upsert: true}, function(err, poll) {
-					if(err) return console.error(err);
-					res.send(poll);
-				})
+			Poll.count({"_id": req.params.pollId, "choices.choice_name": req.body.choice}, function(err, optionExists) {
+				if(err) return console.error(err);
+				
+				if(!optionExists) {
+					Poll.findOneAndUpdate(
+						{"_id": req.params.pollId},
+						{$push: {"choices": { "choice_name": req.body.choice, votes: 1}}, $addToSet: {"voted_users": req.body.user_id}},
+						{upsert: true}, function(err, poll) {
+							if(err) return console.error(err);
+							res.send(poll);
+					})
+				} else {
+					let updateChoice = "choices.$." + req.body.choice;
 
+					Poll.findOneAndUpdate(
+						{"_id": req.params.pollId, "choices.choice_name": req.body.choice},
+						{$inc: {"choices.$.votes": 1, "total_votes": 1}, $addToSet: {"voted_users": req.body.user_id}},
+						{upsert: true}, function(err, poll) {
+							if(err) return console.error(err);
+							res.send(poll);
+					})
+				}
+			});
 		})
 		.delete( (req,res) => {
 			Poll.find({

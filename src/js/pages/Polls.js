@@ -30,7 +30,7 @@ export default class Polls extends React.Component {
 	}
 
 	addVote(_id, choice, user_id) {
-		PollActions.addVote(_id, choice, user_id);
+		if(choice !== '') PollActions.addVote(_id, choice, user_id);
 	}
 
 	deletePoll(_id) {
@@ -83,7 +83,7 @@ export default class Polls extends React.Component {
 		// ]
 
 		const PollComponents = polls.map((poll) => {
-			return <Poll key={poll._id} {...poll} addVote={this.addVote} delete={this.deletePoll.bind(this, poll._id)} />;
+			return <Poll key={poll._id} {...poll} addVote={this.addVote} addOption={this.addOption} delete={this.deletePoll.bind(this, poll._id)} />;
 		});
 
 		return (
